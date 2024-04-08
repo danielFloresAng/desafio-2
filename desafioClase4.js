@@ -1,18 +1,27 @@
 // ------------ Inicia código de desafio ------------
+import fs from "fs";
+
 class ProductManager {
   constructor() {
     this.products = [];
+    this.path = "./files/itemList.json";
   }
+
   addProduts(item) {
     let itemsList = this.products;
+    let itemListPath = this.path;
     let generateID = Math.floor(Math.random() * 10) + 1;
 
     let findCode = itemsList.find((elem) => elem.code === item.code);
 
-    return findCode
-      ? console.error(`El producto con código "${elem.code}" ya existe`)
-      : itemsList.push({ ...item, id: generateID });
+    return !findCode
+      ? fs.appendFileSync(
+          itemListPath,
+          JSON.stringify({ ...item, id: generateID })
+        )
+      : console.error(`El producto con código "${elem.code}" ya existe`);
   }
+
   getProducts() {
     return this.products;
   }
