@@ -14,12 +14,11 @@ class ProductManager {
 
     let findCode = itemsList.find((elem) => elem.code === item.code);
 
-    return !findCode
-      ? fs.appendFileSync(
-          itemListPath,
-          JSON.stringify({ ...item, id: generateID })
-        )
+    !findCode
+      ? itemsList.push({ ...item, id: generateID })
       : console.error(`El producto con código "${elem.code}" ya existe`);
+
+    return fs.writeFileSync(itemListPath, JSON.stringify(itemsList));
   }
 
   getProducts() {
@@ -54,16 +53,32 @@ stock:25
 El objeto debe agregarse satisfactoriamente con un id generado automáticamente SIN REPETIRSE
 */
 manager.addProduts({
-  title: " producto prueba”",
+  title: "producto prueba”",
   description: "Este es un producto prueba",
   price: 200,
   thumbnail: "Sin imagen",
   code: "abc123",
-  stock: 25,
+  stock: 2,
+});
+manager.addProduts({
+  title: "producto prueba B",
+  description: "Este es un producto prueba",
+  price: 200,
+  thumbnail: "Sin imagen",
+  code: "abcddd123",
+  stock: 3,
+});
+manager.addProduts({
+  title: "producto prusdfeba B",
+  description: "Este es un producto prueba",
+  price: 200,
+  thumbnail: "Sin imagen",
+  code: "abcddddsf123",
+  stock: 3,
 });
 
 /* ✓ Se llamará el método “getProductss” nuevamente, esta vez debe aparecer el producto recién agregado */
-console.log(manager.getProducts());
+// console.log(manager.getProducts());
 console.log("--------------------------------------------------------"); // separación de puntos de testing
 
 /* ✓ Se llamará al método “getProductsById” y se corroborará que devuelva el producto con el id especificado, en caso de no existir, debe arrojar un error.*/
