@@ -10,26 +10,37 @@ class ProductManager {
   addProduts(item) {
     let itemsList = this.products;
     let itemListPath = this.path;
-    let generateID = Math.floor(Math.random() * 10) + 1;
-
+    let generateID = itemsList.reduce((sum, elem) => 1 + elem.id, 1);
     let findCode = itemsList.find((elem) => elem.code === item.code);
 
     !findCode
       ? itemsList.push({ ...item, id: generateID })
       : console.error(`El producto con código "${elem.code}" ya existe`);
 
-    return fs.writeFileSync(itemListPath, JSON.stringify(itemsList));
+    let listJSON = JSON.stringify(itemsList);
+    const itemsListWriteFile = async () => {
+      await fs.promises.writeFile(itemListPath, listJSON);
+    };
+    itemsListWriteFile();
   }
 
   getProducts() {
-    return this.products;
+    const getList = async () => {
+      let readItems = await fs.promises.readFile(this.path, "utf-8");
+      console.log(JSON.parse(readItems));
+    };
+    getList();
   }
   getProductsById(itemID) {
-    let getItem = this.products.find((item) => item.id === itemID);
-
-    return getItem
-      ? getItem
-      : console.error(`No se encotró el producto con ID: "${itemID}"`);
+    const getById = async () => {
+      let readItems = await fs.promises.readFile(this.path, "utf-8");
+      let list = await JSON.parse(readItems);
+      let getItem = list.find((item) => item.id === itemID);
+      return getItem
+        ? console.log(getItem)
+        : console.error(`No se encotró el producto con ID: "${itemID}"`);
+    };
+    getById();
   }
 }
 // ------------ Finaliza código de desafio ------------
@@ -39,7 +50,7 @@ class ProductManager {
 let manager = new ProductManager();
 
 /* ✓ Se llamará “getProductss” recién creada la instancia, debe devolver un arreglo vacío [] */
-console.log(manager.getProducts());
+// console.log(manager.getProducts());
 console.log("--------------------------------------------------------"); // separación de puntos de testing
 
 /* ✓ Se llamará al método “addProduct” con los campos:
@@ -76,13 +87,21 @@ manager.addProduts({
   code: "abcddddsf123",
   stock: 3,
 });
+manager.addProduts({
+  title: "D",
+  description: "Este es un producto prueba",
+  price: 20210,
+  thumbnail: "Sin imagen",
+  code: "abcddddsfsdf123",
+  stock: 4,
+});
 
 /* ✓ Se llamará el método “getProductss” nuevamente, esta vez debe aparecer el producto recién agregado */
 // console.log(manager.getProducts());
 console.log("--------------------------------------------------------"); // separación de puntos de testing
 
 /* ✓ Se llamará al método “getProductsById” y se corroborará que devuelva el producto con el id especificado, en caso de no existir, debe arrojar un error.*/
-manager.getProductsById(34);
+// manager.getProductsById(34);
 /* ✓ */
 /* ✓ */
 /* ✓ */
@@ -91,3 +110,5 @@ DESAFÍO ENTREGABLE - PROCESO DE TESTING
 Se llamará al método “updateProduct” y se intentará cambiar un campo de algún producto, se evaluará que no se elimine el id y que sí se haya hecho la actualización.
 Se llamará al método “deleteProduct”, se evaluará que realmente se elimine el producto o que arroje un error en caso de no existir.
 */
+// manager.getProducts();
+manager.getProductsById(1);

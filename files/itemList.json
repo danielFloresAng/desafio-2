@@ -6,7 +6,7 @@
     "thumbnail": "Sin imagen",
     "code": "abc123",
     "stock": 2,
-    "id": 4
+    "id": 1
   },
   {
     "title": "producto prueba B",
@@ -15,7 +15,7 @@
     "thumbnail": "Sin imagen",
     "code": "abcddd123",
     "stock": 3,
-    "id": 8
+    "id": 2
   },
   {
     "title": "producto prusdfeba B",
@@ -24,6 +24,15 @@
     "thumbnail": "Sin imagen",
     "code": "abcddddsf123",
     "stock": 3,
+    "id": 3
+  },
+  {
+    "title": "D",
+    "description": "Este es un producto prueba",
+    "price": 20210,
+    "thumbnail": "Sin imagen",
+    "code": "abcddddsfsdf123",
+    "stock": 4,
     "id": 4
   }
 ]
