@@ -18,6 +18,7 @@ class ProductManager {
       : console.error(`El producto con código "${elem.code}" ya existe`);
 
     let listJSON = JSON.stringify(itemsList);
+
     const itemsListWriteFile = async () => {
       await fs.promises.writeFile(itemListPath, listJSON);
     };
@@ -41,6 +42,29 @@ class ProductManager {
         : console.error(`No se encotró el producto con ID: "${itemID}"`);
     };
     getById();
+  }
+  updateProduct(productID, property) {
+    const findAndModify = async () => {
+      // let readItems = await fs.promises.readFile(this.path, "utf-8");
+      // let listParse = await JSON.parse(readItems);
+      const getItems = getProducts()
+      
+      
+      
+      
+      // let getItem = listParse.find((item) => item.id === productID);
+
+      // let modfyItem = { ...getItem, property };
+      // getItem = { ...getItem, property };
+
+      // await fs.promises.writeFile(this.path,)
+    };
+    findAndModify();
+
+    // debe recibir el id del producto a actualizar, así también como el campo a actualizar (puede ser el objeto completo, como en una DB), y debe actualizar el producto que tenga ese id en el archivo. NO DEBE BORRARSE SU ID
+  }
+  deleteProduct() {
+    //Debe tener un método deleteProduct, el cual debe recibir un id y debe eliminar el producto que tenga ese id en el archivo.
   }
 }
 // ------------ Finaliza código de desafio ------------
