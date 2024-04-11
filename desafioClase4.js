@@ -47,24 +47,38 @@ class ProductManager {
     const findAndModify = async () => {
       // let readItems = await fs.promises.readFile(this.path, "utf-8");
       // let listParse = await JSON.parse(readItems);
-      const getItems = getProducts()
-      
-      
-      
-      
+      const getItems = getProducts();
+      getItems.forEach((elem) => {
+        if (productID === elem.id) {
+        }
+      });
       // let getItem = listParse.find((item) => item.id === productID);
-
       // let modfyItem = { ...getItem, property };
       // getItem = { ...getItem, property };
-
       // await fs.promises.writeFile(this.path,)
     };
     findAndModify();
 
     // debe recibir el id del producto a actualizar, así también como el campo a actualizar (puede ser el objeto completo, como en una DB), y debe actualizar el producto que tenga ese id en el archivo. NO DEBE BORRARSE SU ID
   }
-  deleteProduct() {
+  deleteProduct(elemId) {
     //Debe tener un método deleteProduct, el cual debe recibir un id y debe eliminar el producto que tenga ese id en el archivo.
+    let itemsList = this.products;
+
+    const deleteItem = async () => {
+      // const getItems = getProducts();
+      let readItems = await fs.promises.readFile(this.path, "utf-8");
+      let list = JSON.parse(readItems);
+      let filterItem = list.findIndex((elem) => elem.id === elemId);
+
+      if (filterItem !== -1) {
+        // getItems.splice()
+        itemsList.splice(filterItem, 1);
+      }
+      let listJSON = JSON.stringify(itemsList);
+      await fs.promises.writeFile(this.path, listJSON);
+    };
+    deleteItem();
   }
 }
 // ------------ Finaliza código de desafio ------------
@@ -75,7 +89,6 @@ let manager = new ProductManager();
 
 /* ✓ Se llamará “getProductss” recién creada la instancia, debe devolver un arreglo vacío [] */
 // console.log(manager.getProducts());
-console.log("--------------------------------------------------------"); // separación de puntos de testing
 
 /* ✓ Se llamará al método “addProduct” con los campos:
 title: “producto prueba”
@@ -88,7 +101,7 @@ stock:25
 El objeto debe agregarse satisfactoriamente con un id generado automáticamente SIN REPETIRSE
 */
 manager.addProduts({
-  title: "producto prueba”",
+  title: "producto prueba 1",
   description: "Este es un producto prueba",
   price: 200,
   thumbnail: "Sin imagen",
@@ -96,7 +109,7 @@ manager.addProduts({
   stock: 2,
 });
 manager.addProduts({
-  title: "producto prueba B",
+  title: "producto prueba 2",
   description: "Este es un producto prueba",
   price: 200,
   thumbnail: "Sin imagen",
@@ -104,7 +117,7 @@ manager.addProduts({
   stock: 3,
 });
 manager.addProduts({
-  title: "producto prusdfeba B",
+  title: "producto prusdfeba 3",
   description: "Este es un producto prueba",
   price: 200,
   thumbnail: "Sin imagen",
@@ -113,7 +126,7 @@ manager.addProduts({
 });
 manager.addProduts({
   title: "D",
-  description: "Este es un producto prueba",
+  description: "Este es un producto prueba 4",
   price: 20210,
   thumbnail: "Sin imagen",
   code: "abcddddsfsdf123",
@@ -122,7 +135,7 @@ manager.addProduts({
 
 /* ✓ Se llamará el método “getProductss” nuevamente, esta vez debe aparecer el producto recién agregado */
 // console.log(manager.getProducts());
-console.log("--------------------------------------------------------"); // separación de puntos de testing
+//console.log("--------------------------------------------------------"); // separación de puntos de testing
 
 /* ✓ Se llamará al método “getProductsById” y se corroborará que devuelva el producto con el id especificado, en caso de no existir, debe arrojar un error.*/
 // manager.getProductsById(34);
@@ -135,4 +148,9 @@ Se llamará al método “updateProduct” y se intentará cambiar un campo de a
 Se llamará al método “deleteProduct”, se evaluará que realmente se elimine el producto o que arroje un error en caso de no existir.
 */
 // manager.getProducts();
-manager.getProductsById(1);
+console.log("--------------------------------------------------------"); // separación de puntos de testing
+// manager.getProductsById(4);
+
+manager.deleteProduct(1);
+// manager.getProducts();
+console.log("--------------------------------------------------------"); // separación de puntos de testing

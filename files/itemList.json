@@ -1,15 +1,6 @@
 [
   {
-    "title": "producto prueba”",
-    "description": "Este es un producto prueba",
-    "price": 200,
-    "thumbnail": "Sin imagen",
-    "code": "abc123",
-    "stock": 2,
-    "id": 1
-  },
-  {
-    "title": "producto prueba B",
+    "title": "producto prueba 2",
     "description": "Este es un producto prueba",
     "price": 200,
     "thumbnail": "Sin imagen",
@@ -18,7 +9,7 @@
     "id": 2
   },
   {
-    "title": "producto prusdfeba B",
+    "title": "producto prusdfeba 3",
     "description": "Este es un producto prueba",
     "price": 200,
     "thumbnail": "Sin imagen",
@@ -28,7 +19,7 @@
   },
   {
     "title": "D",
-    "description": "Este es un producto prueba",
+    "description": "Este es un producto prueba 4",
     "price": 20210,
     "thumbnail": "Sin imagen",
     "code": "abcddddsfsdf123",
