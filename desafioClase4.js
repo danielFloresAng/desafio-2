@@ -43,36 +43,36 @@ class ProductManager {
     };
     getById();
   }
-  updateProduct(productID, property) {
+  updateProduct(productID, properties) {
     const findAndModify = async () => {
-      // let readItems = await fs.promises.readFile(this.path, "utf-8");
-      // let listParse = await JSON.parse(readItems);
-      const getItems = getProducts();
-      getItems.forEach((elem) => {
+      let readItems = await fs.promises.readFile(this.path, "utf-8");
+      let listParse = JSON.parse(readItems);
+
+      listParse.forEach((elem) => {
         if (productID === elem.id) {
+          for (let prop in properties) {
+            if (prop !== "id") {
+              elem[prop] = properties[prop];
+            }
+          }
         }
       });
-      // let getItem = listParse.find((item) => item.id === productID);
-      // let modfyItem = { ...getItem, property };
-      // getItem = { ...getItem, property };
-      // await fs.promises.writeFile(this.path,)
+      let listJSON = JSON.stringify(listParse);
+      await fs.promises.writeFile(this.path, listJSON);
     };
     findAndModify();
 
     // debe recibir el id del producto a actualizar, así también como el campo a actualizar (puede ser el objeto completo, como en una DB), y debe actualizar el producto que tenga ese id en el archivo. NO DEBE BORRARSE SU ID
   }
   deleteProduct(elemId) {
-    //Debe tener un método deleteProduct, el cual debe recibir un id y debe eliminar el producto que tenga ese id en el archivo.
     let itemsList = this.products;
 
     const deleteItem = async () => {
-      // const getItems = getProducts();
       let readItems = await fs.promises.readFile(this.path, "utf-8");
       let list = JSON.parse(readItems);
       let filterItem = list.findIndex((elem) => elem.id === elemId);
 
       if (filterItem !== -1) {
-        // getItems.splice()
         itemsList.splice(filterItem, 1);
       }
       let listJSON = JSON.stringify(itemsList);
@@ -89,6 +89,7 @@ let manager = new ProductManager();
 
 /* ✓ Se llamará “getProductss” recién creada la instancia, debe devolver un arreglo vacío [] */
 // console.log(manager.getProducts());
+console.log("--------------------------------------------------------"); // separación de puntos de testing
 
 /* ✓ Se llamará al método “addProduct” con los campos:
 title: “producto prueba”
@@ -135,22 +136,18 @@ manager.addProduts({
 
 /* ✓ Se llamará el método “getProductss” nuevamente, esta vez debe aparecer el producto recién agregado */
 // console.log(manager.getProducts());
-//console.log("--------------------------------------------------------"); // separación de puntos de testing
+console.log("--------------------------------------------------------"); // separación de puntos de testing
 
 /* ✓ Se llamará al método “getProductsById” y se corroborará que devuelva el producto con el id especificado, en caso de no existir, debe arrojar un error.*/
-// manager.getProductsById(34);
-/* ✓ */
-/* ✓ */
-/* ✓ */
-/*
-DESAFÍO ENTREGABLE - PROCESO DE TESTING
-Se llamará al método “updateProduct” y se intentará cambiar un campo de algún producto, se evaluará que no se elimine el id y que sí se haya hecho la actualización.
-Se llamará al método “deleteProduct”, se evaluará que realmente se elimine el producto o que arroje un error en caso de no existir.
-*/
-// manager.getProducts();
+// manager.getProductsById(3);
 console.log("--------------------------------------------------------"); // separación de puntos de testing
-// manager.getProductsById(4);
 
-manager.deleteProduct(1);
-// manager.getProducts();
+/* ✓ Se llamará al método “updateProduct” y se intentará cambiar un campo de algún producto, se evaluará que no se elimine el id y que sí se haya hecho la actualización.
+ */
+// manager.updateProduct(2, { price: 300000 });
+console.log("--------------------------------------------------------"); // separación de puntos de testing
+
+/* ✓ Se llamará al método “deleteProduct”, se evaluará que realmente se elimine el producto o que arroje un error en caso de no existir.
+ */
+// manager.deleteProduct(1);
 console.log("--------------------------------------------------------"); // separación de puntos de testing
